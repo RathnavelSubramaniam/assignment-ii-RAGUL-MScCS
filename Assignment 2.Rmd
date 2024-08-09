@@ -1,0 +1,231 @@
+---
+title: "Assignment 2"
+author: "ragul"
+date: "2024-07-30"
+output: html_document
+---
+
+```{r}
+library(tinytex)
+library(ISLR)
+library(MASS)
+```
+
+
+
+#1. In this exercise you will create some simulated data and will fit simple linear regression models to it. Make sure to use set.seed(1) prior to starting part (a) to ensure consistent results.rnorm
+
+#a)Using the rnorm() function, create a vector, “x”, containing 100 observations drawn from a N(0,1) distribution. This represents a feature, X.
+
+
+```{r}
+set.seed(1)
+x = rnorm(100,0,1)
+x
+
+```
+#b)Using the rnorm() function, create a vector, “eps”, containing 100 observations drawn from a N(0,0.25) distribution.
+
+```{r}
+eps = rnorm(100,0,sqrt(0.25))
+eps
+```
+#c)Using “x” and “eps”, generate a vector “y” according to the model
+Y=−1+0.5X+ε.What is the length of the vector “y” ? What are the values of β0 and β1 in this linear model ?
+
+
+```{r}
+y <- -1 + 0.5*x + eps
+y
+
+```
+#d)d.	Create a scatterplot displaying the relationship between “x” and “y”. Comment on what you observe.
+
+```{r}
+plot(x,y)
+```
+#e)Fit a least squares linear model to predict “y” using “x”. Comment on the model obtained. How do β^0 and β^1 compare to β0 and β1 ?
+
+```{r}
+fit = lm(y~x)
+summary(fit)
+```
+#f)Display the least squares line on the scatterplot obtained in (d). Draw the population regression line on the plot, in a different color. Use the legend() function to create an appropriate legend.
+
+```{r}
+plot(x,y)
+abline(coef = c(-1,0.5),col = "blue")
+abline(fit,col="red")
+legend("topleft",c("ls","regression"),col=c("red","blue"),lty = c(1,2))
+```
+#2)This problem involves the “Boston” data set, which we saw in the lab for this chapter. We will now try to predict per capita crime rate using the other variables in this data set. In other words, per capita crime rate is the response, and the other variables are the predictors.
+
+#a)For each predictor, fit a simple linear regression model to predict the response. Describe your results. In which of the models is there a statistically significant association between the predictor and the response ? Create some plots to back up your assertions.
+
+```{r}
+attach(Boston)
+names(Boston)
+```
+
+```{r}
+fit.zn <- lm(crim ~ zn)
+summary(fit.zn)
+```
+```{r}
+plot(zn,crim,pch = 20, main = "Relationship between crim and zn")
+abline(fit.zn,col = "blue",lwd = 3)
+legend("topleft", c( "Regression"), col = c("blue"), lty = c(1, 1))
+```
+
+
+```{r}
+fit.indus <- lm(crim ~ indus)
+summary(fit.indus)
+```
+```{r}
+plot(indus,crim,pch = 20, main = "Relationship between crim and indus")
+abline(fit.indus,col = "red",lwd = 3)
+legend("topleft", c( "Regression"), col = c("red"), lty = c(1, 1))
+```
+
+
+```{r}
+chas <- as.factor(chas)
+fit.chas <- lm(crim ~ chas)
+summary(fit.chas)
+```
+```{r}
+plot(chas,crim,pch = 20, main = "Relationship between crim and chas")
+abline(fit.chas,col = "green",lwd = 3)
+legend("topleft", c( "Regression"), col = c("green"), lty = c(1, 1))
+```
+
+
+```{r}
+fit.nox <- lm(crim ~ nox)
+summary(fit.nox)
+```
+```{r}
+plot(nox,crim,pch = 20, main = "Relationship between crim and nox")
+abline(fit.nox,col = "red",lwd = 3)
+legend("topleft", c( "Regression"), col = c("red"), lty = c(1, 1))
+```
+
+
+```{r}
+fit.rm <- lm(crim ~ rm)
+summary(fit.rm)
+```
+```{r}
+plot(rm,crim,pch = 20, main = "Relationship between crim and rm",
+     xlab = "average number of rooms per dwelling 'rm'", ylab = "per capita crime rate 'crim'")
+abline(fit.rm,col = "blue",lwd = 3)
+legend("topleft", c( "Regression"), col = c("blue"), lty = c(1, 1))
+```
+
+
+```{r}
+fit.age <- lm(crim ~ age)
+summary(fit.age)
+```
+```{r}
+plot(age,crim,pch = 20, main = "Relationship between crim and age",
+      ylab = "per capita crime rate 'crim'")
+abline(fit.age,col = "green",lwd = 3)
+legend("topleft", c( "Regression"), col = c("green"), lty = c(1, 1))
+```
+
+
+```{r}
+fit.dis <- lm(crim ~ dis)
+summary(fit.dis)
+```
+```{r}
+plot(dis,crim,pch = 20, main = "Relationship between crim and dis",
+     ylab = "per capita crime rate 'crim'")
+abline(fit.dis,col = "red",lwd = 3)
+legend("topleft", c( "Regression"), col = c("red"), lty = c(1, 1))
+```
+
+
+```{r}
+fit.rad <- lm(crim ~ rad)
+summary(fit.rad)
+```
+```{r}
+plot(rad,crim,pch = 20, main = "Relationship between crim and rad",
+     ylab = "per capita crime rate 'crim'")
+abline(fit.rad,col = "blue",lwd = 3)
+legend("topleft", c( "Regression"), col = c("blue"), lty = c(1, 1))
+```
+
+
+```{r}
+fit.tax <- lm(crim ~ tax)
+summary(fit.tax)
+```
+```{r}
+plot(tax,crim,pch = 20, main = "Relationship between crim and tax",
+     ylab = "per capita crime rate 'crim'")
+abline(fit.tax,col = "green",lwd = 3)
+legend("topleft", c( "Regression"), col = c("green"), lty = c(1, 1))
+```
+
+
+```{r}
+fit.ptratio <- lm(crim ~ ptratio)
+summary(fit.ptratio)
+```
+```{r}
+plot(ptratio,crim,pch = 20, main = "Relationship between crim and ptratio",
+     ylab = "per capita crime rate 'crim'", xlab = "pupil-teacher ratio by town (ptratio)")
+abline(fit.ptratio,col = "red",lwd = 3)
+legend("topleft", c( "Regression"), col = c("red"), lty = c(1, 1))
+```
+
+
+```{r}
+fit.black <- lm(crim ~ black)
+summary(fit.black)
+```
+```{r}
+plot(black,crim,pch = 20, main = "Relationship between crim and black",
+     ylab = "per capita crime rate 'crim'")
+abline(fit.black,col = "blue",lwd = 3)
+legend("topleft", c( "Regression"), col = c("blue"), lty = c(1, 1))
+```
+
+
+```{r}
+fit.lstat <- lm(crim ~ lstat)
+summary(fit.lstat)
+```
+```{r}
+plot(lstat,crim,pch = 20, main = "Relationship between crim and lstat",
+     ylab = "per capita crime rate 'crim'", xlab = "lower status of the population (percent)")
+abline(fit.lstat,col = "green",lwd = 3)
+legend("topleft", c( "Regression"), col = c("green"), lty = c(1, 1))
+```
+
+
+```{r}
+fit.medv <- lm(crim ~ medv)
+summary(fit.medv)
+```
+```{r}
+plot(medv,crim,pch = 20, main = "Relationship between crim and medv",
+     ylab = "per capita crime rate 'crim'", xlab = "median value of owner-occupied homes")
+abline(fit.medv,col = "red",lwd = 3)
+legend("topleft", c( "Regression"), col = c("red"), lty = c(1, 1))
+```
+
+
+
+
+#b)Fit a multiple regression model to predict the response using all of the predictors. Describe your results. For which predictors can we reject the null hypothesis H0:βj=0 ?
+
+```{r}
+multiplemodel_fit <- lm(crim ~.,data = Boston)
+summary(multiplemodel_fit)
+```
+
